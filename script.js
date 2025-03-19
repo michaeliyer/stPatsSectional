@@ -212,6 +212,7 @@ function editSectionName(oldName) {
 function deleteSection(sectionName) {
     if (!confirm(`❌ Are you sure you want to delete the entire "${sectionName}" section?`)) return;
     if (!confirm("🔥 Final warning: This section and all its tasks will be permanently deleted!")) return;
+    if (!confirm("🔥 Fine: This section is history!")) return;
 
     delete sections[sectionName];
     renderSections();

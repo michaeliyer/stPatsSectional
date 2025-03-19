@@ -52,7 +52,7 @@ h1 {
     align-items: center;
     gap: 0.5rem;
     background-color: #0b55a4;
-    width: 280px;
+    width: 350px;
 }
 
 input[type="text"], input[type="file"] {
@@ -228,7 +228,7 @@ li button {
 }
 
 /* Responsive */
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
     #sectionsContainer {
         grid-template-columns: 1fr;
     }
@@ -236,7 +236,9 @@ li button {
     .newFileSection, .importExportSection {
         width: 90%;
     }
-} */
+}
+
+
 
 
 

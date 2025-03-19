@@ -31,6 +31,12 @@ function renderSections() {
         section.style.color = sectionData.color || "#000000";
         section.style.backgroundColor = sectionData.backgroundColor || "#ffffff";
 
+
+
+        section.style.display = "none"; // 🟢 Start hidden by default
+
+
+
         const title = document.createElement("span");
         title.className = "section-title";
         title.textContent = sectionName;
@@ -468,9 +474,6 @@ function importSection(event) {
 
 
 
-
-
-
 function checkAllTasks(sectionName) {
     sections[sectionName].tasks.forEach(task => {
         task.checked = true;
@@ -488,6 +491,47 @@ function uncheckAllTasks(sectionName) {
     saveSections();
     renderTasks(sectionName);
 }
+
+
+
+
+
+
+let allSectionsHidden = true; // 🟢 Default hidden
+
+function toggleAllSections() {
+    const allSections = document.querySelectorAll(".section");
+
+    allSections.forEach(section => {
+        section.style.display = allSectionsHidden ? "flex" : "none";
+    });
+
+    const btn = document.getElementById("toggleAllBtn");
+    btn.textContent = allSectionsHidden ? "👁 Hide All Sections" : "👁 Show All Sections";
+
+    allSectionsHidden = !allSectionsHidden;
+}
+
+
+
+
+// let headerControlsVisible = false;
+
+// function toggleHeaderControls() {
+//     const controls = document.getElementById("controls");
+//     const btn = document.getElementById("headerToggleBtn");
+
+//     if (!headerControlsVisible) {
+//         controls.style.display = "flex";
+//         btn.textContent = "➖ Hide Controls";
+//     } else {
+//         controls.style.display = "none";
+//         btn.textContent = "➕ Show Controls";
+//     }
+
+//     headerControlsVisible = !headerControlsVisible;
+// }
+
 
 
 

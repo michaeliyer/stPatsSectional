@@ -228,7 +228,7 @@ li button {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     #sectionsContainer {
         grid-template-columns: 1fr;
     }
@@ -236,7 +236,7 @@ li button {
     .newFileSection, .importExportSection {
         width: 90%;
     }
-}
+} */
 
 
 

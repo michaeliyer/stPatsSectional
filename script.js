@@ -516,21 +516,41 @@ function toggleAllSections() {
 
 
 let headerControlsVisible = false;
-
 function toggleHeaderControls() {
     const controls = document.getElementById("controls");
     const btn = document.getElementById("headerToggleBtn");
 
-    if (!headerControlsVisible) {
-        controls.style.display = "flex";
-        btn.textContent = "➖ Hide Controls";
-    } else {
+    if (headerControlsVisible) {
         controls.style.display = "none";
         btn.textContent = "➕ Show Controls";
+    } else {
+        controls.style.display = "flex";
+        btn.textContent = "➖ Hide Controls";
     }
 
     headerControlsVisible = !headerControlsVisible;
 }
+
+// Optional: Start hidden on page load
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("controls").style.display = "none";
+    document.getElementById("headerToggleBtn").textContent = "➕ Show Controls";
+});
+
+// function toggleHeaderControls() {
+//     const controls = document.getElementById("controls");
+//     const btn = document.getElementById("headerToggleBtn");
+
+//     if (!headerControlsVisible) {
+//         controls.style.display = "flex";
+//         btn.textContent = "➖ Hide Controls";
+//     } else {
+//         controls.style.display = "none";
+//         btn.textContent = "➕ Show Controls";
+//     }
+
+//     headerControlsVisible = !headerControlsVisible;
+// }
 
 
 

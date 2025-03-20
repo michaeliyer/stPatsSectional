@@ -346,73 +346,6 @@ function renderTasks(sectionName) {
 
     saveSections();
 }
-// function renderTasks(sectionName) {
-//     const list = document.getElementById(`${sectionName.replace(/\s+/g, "")}List`);
-//     list.innerHTML = "";
-
-//     const bgColor = sections[sectionName].backgroundColor || "#ffffff"; // Get saved bg
-
-//     sections[sectionName].tasks.forEach((taskObj, index) => {
-//         const listItem = document.createElement("li");
-
-//         const checkbox = document.createElement("input");
-//         checkbox.type = "checkbox";
-//         checkbox.checked = taskObj.checked;
-//         checkbox.id = `${sectionName.replace(/\s+/g, "")}Task${index}`;
-
-//         // Apply checked style
-//         if (taskObj.checked) {
-//             listItem.classList.add("completed");
-//         }
-
-//         checkbox.addEventListener("change", () => {
-//             sections[sectionName].tasks[index].checked = checkbox.checked;
-//             if (checkbox.checked) {
-//                 listItem.classList.add("completed");
-//             } else {
-//                 listItem.classList.remove("completed");
-//             }
-//             saveSections();
-//         });
-
-//         const label = document.createElement("label");
-// label.htmlFor = checkbox.id;
-
-// if (taskObj.text.startsWith("http://") || taskObj.text.startsWith("https://")) {
-//     // It's a URL → make clickable link
-//     const link = document.createElement("a");
-//     link.href = taskObj.text;
-//     link.textContent = taskObj.text;
-//     link.target = "_blank"; // Open in new tab
-//     link.style.color = "#ffeb3b"; // Optional styling (yellow link)
-//     label.appendChild(link);
-// } else {
-//     // Normal text
-//     label.textContent = taskObj.text;
-// }
-        
-
-//         // const label = document.createElement("label");
-//         // label.htmlFor = checkbox.id;
-//         // label.textContent = taskObj.text;
-
-//         const deleteBtn = document.createElement("button");
-//         deleteBtn.textContent = "🗑";
-//         deleteBtn.addEventListener("click", () => {
-//             deleteTask(sectionName, index);
-//         });
-
-//         // 🟢 Match task background to section bg
-//         listItem.style.backgroundColor = bgColor;
-
-//         listItem.appendChild(checkbox);
-//         listItem.appendChild(label);
-//         listItem.appendChild(deleteBtn);
-//         list.appendChild(listItem);
-//     });
-
-//     saveSections();
-// }
 
 // Delete task
 function deleteTask(sectionName, taskIndex) {
@@ -461,28 +394,6 @@ function applyStyle() {
     renderSections();  // Re-render sections to apply updated styles
     closeStyleModal();
 }
-// function applyStyle() {
-//     if (!selectedSection) return;
-
-//     const font = document.getElementById("fontSelect").value;
-//     const size = parseInt(document.getElementById("fontSize").value);
-//     const color = document.getElementById("textColor").value;
-//     const bg = document.getElementById("bgColor").value;
-
-//     sectionData.completedColor = document.getElementById("completedTextColor").value;
-//     sectionData.completedBg = document.getElementById("completedBgColor").value;
-//     sectionData.completedFontStyle = document.getElementById("completedFontStyle").value;
-
-
-//     sections[selectedSection].fontFamily = font;
-//     sections[selectedSection].fontSize = size;
-//     sections[selectedSection].color = color;
-//     sections[selectedSection].backgroundColor = bg;
-
-//     saveSections();
-//     renderSections();
-//     closeStyleModal();
-// }
 
 // Close modal
 function closeStyleModal() {
@@ -617,20 +528,41 @@ function toggleAllSections() {
 
 let headerControlsVisible = false;
 
+
 function toggleHeaderControls() {
     const controls = document.getElementById("controls");
     const btn = document.getElementById("headerToggleBtn");
 
-    if (!headerControlsVisible) {
-        controls.style.display = "flex";
-        btn.textContent = "➖ Hide Controls";
-    } else {
+    if (headerControlsVisible) {
         controls.style.display = "none";
         btn.textContent = "➕ Show Controls";
+    } else {
+        controls.style.display = "flex";
+        btn.textContent = "➖ Hide Controls";
     }
 
     headerControlsVisible = !headerControlsVisible;
 }
+
+// Optional: Start hidden on page load
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("controls").style.display = "none";
+    document.getElementById("headerToggleBtn").textContent = "➕ Show Controls";
+});
+// function toggleHeaderControls() {
+//     const controls = document.getElementById("controls");
+//     const btn = document.getElementById("headerToggleBtn");
+
+//     if (!headerControlsVisible) {
+//         controls.style.display = "flex";
+//         btn.textContent = "➖ Hide Controls";
+//     } else {
+//         controls.style.display = "none";
+//         btn.textContent = "➕ Show Controls";
+//     }
+
+//     headerControlsVisible = !headerControlsVisible;
+// }
 
 
 

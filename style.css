@@ -21,7 +21,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 1rem;
-    background-color: #7295ba;
+    background-color: #000000;
     color: #e6eafe;
     display: flex;
     flex-direction: column;
@@ -339,5 +339,12 @@ li button {
 
 #toggleAllBtn {
     margin-bottom: 20px; 
+}
+
+
+
+
+.hidden {
+    display: none;
 }
 

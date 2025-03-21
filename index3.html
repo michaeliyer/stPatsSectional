@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Checklist</title>
+<link href="style3.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <a href="index.html" id="linkBack">Go To Original Asshole!</a>
+    <a href="index2.html" id="linkBack">Go To New Original!</a>
+<h1>Checklist Test</h1>
+
+<input type="text" id="newSection" placeholder="New Section">
+<button onclick="addSection()">Add Section</button>
+
+
+<!-- Modal Overlay -->
+<div id="modalOverlay" style="display:none;"></div>
+
+<!-- Style Modal -->
+<!-- <div id="styleModal" style="display:none;">
+    <label>Section BG Color:</label>
+    <input type="color" id="sectionBgColor"><br>
+
+    <label>Section Text Color:</label>
+    <input type="color" id="sectionTextColor"><br>
+
+    <label>Completed Text Color:</label>
+    <input type="color" id="completedTextColor"><br>
+
+    <label>Completed BG Color:</label>
+    <input type="color" id="completedBgColor"><br>
+
+    <label>Completed Font Style:</label>
+    <select id="completedFontStyle">
+        <option value="normal">Normal</option>
+        <option value="bold">Bold</option>
+        <option value="italic">Italic</option>
+        <option value="bold italic">Bold Italic</option>
+    </select><br>
+
+    <label>Font:</label>
+    <select id="fontSelect"></select><br>
+
+    <button onclick="applyStyle()">Apply</button>
+    <button onclick="closeStyleModal()">Cancel</button>
+</div> -->
+<div id="styleModal" style="display:none;">
+    <label>Section BG Color:</label>
+    <input type="color" id="sectionBgColor"><br>
+
+    <label>Section Text Color:</label>
+    <input type="color" id="sectionTextColor"><br>
+
+    <label>Font (Section):</label>
+    <select id="fontSelect"></select><br>
+
+    <hr>
+
+    <label>Completed Text Color:</label>
+    <input type="color" id="completedTextColor"><br>
+
+    <label>Completed BG Color:</label>
+    <input type="color" id="completedBgColor"><br>
+
+    <label>Font Style (Completed):</label>
+    <select id="completedFontStyle">
+        <option value="normal">Normal</option>
+        <option value="bold">Bold</option>
+        <option value="italic">Italic</option>
+        <option value="bold italic">Bold Italic</option>
+    </select><br>
+    
+    <label>Font (Completed Tasks):</label>
+    <select id="completedFontSelect"></select><br>
+    
+
+    <button onclick="applyStyle()">Apply</button>
+    <button onclick="closeStyleModal()">Cancel</button>
+</div>
+
+<div id="sectionsContainer"></div>
+
+<script src="script3.js"></script>
+</body>
+</html>

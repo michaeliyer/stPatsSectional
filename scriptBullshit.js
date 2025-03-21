@@ -1,5 +1,5 @@
 // Retrieve sections from localStorage or initialize
-let sections = JSON.parse(localStorage.getItem("sectionsTwo")) || {};
+let sections = JSON.parse(localStorage.getItem("sectionsThree")) || {};
 
 // References
 const container = document.getElementById("sectionsContainer");
@@ -30,16 +30,18 @@ function renderSections() {
         section.style.color = sectionData.color || "#000000";
         section.style.backgroundColor = sectionData.backgroundColor || "#ffffff";
 
-        // Default hidden behavior
+        // By default, sections start hidden unless shown
         section.style.display = sectionData.hidden ? "none" : "flex";
 
-        // --- Title ---
+
+
+
         const title = document.createElement("span");
         title.className = "section-title";
         title.textContent = sectionName;
         title.addEventListener("click", () => editSectionName(sectionName));
 
-        // --- Hamburger Menu ---
+        // Hamburger + Buttons
         const menuBtn = document.createElement("button");
         menuBtn.textContent = "☰";
         menuBtn.className = "menu-btn";
@@ -47,68 +49,28 @@ function renderSections() {
         const dropdown = document.createElement("div");
         dropdown.className = "dropdown-menu";
 
-        // ✔️ Check All
-        const checkAllBtn = document.createElement("button");
-        checkAllBtn.textContent = "✔️ Check All";
-        checkAllBtn.addEventListener("click", () => checkAllTasks(sectionName));
-        dropdown.appendChild(checkAllBtn);
-
-        // ❌ Uncheck All
-        const uncheckAllBtn = document.createElement("button");
-        uncheckAllBtn.textContent = "❌ Uncheck All";
-        uncheckAllBtn.addEventListener("click", () => uncheckAllTasks(sectionName));
-        dropdown.appendChild(uncheckAllBtn);
-
-        // 🎨 Style
         const styleBtn = document.createElement("button");
         styleBtn.textContent = "🎨 Style";
         styleBtn.addEventListener("click", () => openStyleModal(sectionName));
-        dropdown.appendChild(styleBtn);
 
-        // 👁 Hide/Show
         const toggleBtn = document.createElement("button");
         toggleBtn.textContent = sectionData.hidden ? "👁 Show" : "👁 Hide";
-        toggleBtn.className = "toggle-visibility-btn";
         toggleBtn.addEventListener("click", () => toggleContent(section, toggleBtn));
-        dropdown.appendChild(toggleBtn);
 
-        // 🗑 Delete
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "🗑 Delete";
         deleteBtn.addEventListener("click", () => deleteSection(sectionName));
-        dropdown.appendChild(deleteBtn);
 
-        // ➕ Add Task Button
         const showInputBtn = document.createElement("button");
         showInputBtn.textContent = "➕ Add Task";
-        dropdown.appendChild(showInputBtn);
 
-        // 📤 Export Section
-        const exportBtn = document.createElement("button");
-        exportBtn.textContent = "📤 Export Section";
-        exportBtn.addEventListener("click", () => exportSection(sectionName));
-        dropdown.appendChild(exportBtn);
-
-        // 📥 Import Section
-        const importBtn = document.createElement("button");
-        importBtn.textContent = "📥 Import Section";
-        importBtn.addEventListener("click", () => {
-            const fileInput = document.createElement("input");
-            fileInput.type = "file";
-            fileInput.accept = ".json";
-            fileInput.addEventListener("change", importSection);
-            fileInput.click();
-        });
-        dropdown.appendChild(importBtn);
-
-        // --- Section Content ---
+        // Section Content
         const content = document.createElement("div");
         content.className = "section-content";
 
         const list = document.createElement("ul");
         list.id = `${sectionName.replace(/\s+/g, "")}List`;
 
-        // --- Task Input ---
         const inputContainer = document.createElement("div");
         inputContainer.style.display = "none";
         inputContainer.className = "task-input-container";
@@ -125,17 +87,19 @@ function renderSections() {
         inputContainer.appendChild(input);
         inputContainer.appendChild(addBtn);
 
-        // Toggle task input visibility
         showInputBtn.addEventListener("click", () => {
             inputContainer.style.display = inputContainer.style.display === "flex" ? "none" : "flex";
         });
 
-        // --- Dropdown toggle ---
+        dropdown.appendChild(styleBtn);
+        dropdown.appendChild(toggleBtn);
+        dropdown.appendChild(deleteBtn);
+        dropdown.appendChild(showInputBtn);
+
         menuBtn.addEventListener("click", () => {
             dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
         });
 
-        // --- Assemble Section ---
         content.appendChild(list);
         content.appendChild(inputContainer);
 
@@ -146,64 +110,72 @@ function renderSections() {
 
         container.appendChild(section);
 
-        // Render existing tasks
         renderTasks(sectionName);
     });
-
+   
     saveSections();
 }
 
-// Save sections
+
+
 function saveSections() {
-    localStorage.setItem("sectionsTwo", JSON.stringify(sections));
+    localStorage.setItem("sectionsThree", JSON.stringify(sections));
 }
 
-// Add section
+
+// Save sections
 function addSection() {
     const sectionInput = document.getElementById("newSection");
-    const sectionName = sectionInput.value.trim();
+    const rawName = sectionInput.value.trim();
 
-    if (sectionName === "" || sections[sectionName]) {
-        alert("Section name invalid or already exists.");
+    if (rawName === "") {
+        alert("Section name cannot be empty.");
         return;
     }
 
-//NEW SHITTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+    const sectionName = rawName.toLowerCase(); // Normalize
+    if (sections[sectionName]) {
+        alert(`Section "${rawName}" already exists.`);
+        return;
+    }
+
+    // New section → default visible
     sections[sectionName] = {
         tasks: [],
         fontFamily: "Arial",
         fontSize: 16,
         color: "#000000",
         backgroundColor: "#ffffff",
-        completedColor: "#888888",            // NEW: Text color when completed
-        completedBg: "#f0f0f0",               // NEW: Background color when completed
-        completedFontStyle: "italic bold"     // NEW: Font style (italic, bold, etc.)
+        completedColor: "#888888",
+        completedBg: "#f0f0f0",
+        completedFontStyle: "none",
+        hidden: false // 🟢 Visible when created
     };
-    // sections[sectionName] = {
-    //     tasks: [],
-    //     fontFamily: "Arial",
-    //     fontSize: 16,
-    //     color: "#000000",
-    //     backgroundColor: "#ffffff"
-    // };
 
-    sectionInput.value = "";
+    saveSections();
     renderSections();
-}
 
+    sectionInput.value = ""; // Clear input
+}
 // Edit section name
 function editSectionName(oldName) {
     const newName = prompt("Enter new name:", oldName);
     if (newName && newName.trim() !== "" && newName !== oldName) {
         if (sections[newName]) {
-            alert("Section name already exists.");
+            alert("A section with that name already exists.");
             return;
         }
+        // Copy old data to new key
         sections[newName] = { ...sections[oldName] };
         delete sections[oldName];
-        renderSections();
+        saveSections(); // Save the updated structure
+        renderSections(); // Refresh UI
     }
 }
+
+
+
+
 
 // Delete section
 function deleteSection(sectionName) {
@@ -212,7 +184,8 @@ function deleteSection(sectionName) {
     if (!confirm("🔥 Fine: This section is history!")) return;
 
     delete sections[sectionName];
-    renderSections();
+    saveSections(); // Save after deleting
+    renderSections(); // Refresh UI
 }
 
 // Toggle
@@ -250,6 +223,7 @@ function addTask(sectionName) {
 
     taskInput.value = "";
     renderTasks(sectionName);
+    saveSections();
 }
 
 // Render tasks
@@ -333,9 +307,9 @@ function deleteTask(sectionName, taskIndex) {
     if (!confirm("🔥 Final warning: This task will be gone forever!")) return;
 
     sections[sectionName].tasks.splice(taskIndex, 1);
+    saveSections(); // 🟢 Add this to save immediately
     renderTasks(sectionName);
 }
-
 
 // Open style modal
 function openStyleModal(sectionName) {
@@ -374,6 +348,8 @@ function applyStyle() {
     renderSections();  // Re-render sections to apply updated styles
     closeStyleModal();
 }
+
+
 
 // Close modal
 function closeStyleModal() {
@@ -482,32 +458,29 @@ function uncheckAllTasks(sectionName) {
     saveSections();
     renderTasks(sectionName);
 }
-
-
-
-
-
-
-let allSectionsHidden = true; // 🟢 Default hidden
+let allSectionsHidden = true;
 
 function toggleAllSections() {
     const allSections = document.querySelectorAll(".section");
+    const btn = document.getElementById("toggleAllBtn");
 
     allSections.forEach(section => {
         section.style.display = allSectionsHidden ? "flex" : "none";
+
+        // Update hidden state in data
+        const sectionName = section.querySelector(".section-title").textContent;
+        if (sections[sectionName]) {
+            sections[sectionName].hidden = !allSectionsHidden;
+        }
     });
 
-    const btn = document.getElementById("toggleAllBtn");
     btn.textContent = allSectionsHidden ? "👁 Hide All Sections" : "👁 Show All Sections";
-
     allSectionsHidden = !allSectionsHidden;
+    saveSections();
 }
 
-
-
-
+// Header Controls toggle
 let headerControlsVisible = false;
-
 
 function toggleHeaderControls() {
     const controls = document.getElementById("controls");
@@ -524,13 +497,15 @@ function toggleHeaderControls() {
     headerControlsVisible = !headerControlsVisible;
 }
 
-// Optional: Start hidden on page load
+// On page load: hide controls, render sections, populate fonts
 document.addEventListener("DOMContentLoaded", () => {
+    renderSections();
+    populateFontDropdown();
+
+    // Set header controls hidden
     document.getElementById("controls").style.display = "none";
     document.getElementById("headerToggleBtn").textContent = "➕ Show Controls";
 });
-
-
 
 
 

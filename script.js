@@ -571,3 +571,27 @@ function populateFontDropdown() {
         fontSelect.appendChild(option);
     });
 }
+
+
+
+
+  const openBtn = document.getElementById('openBodyStyler');
+  const modal = document.getElementById('bodyModal');
+  const closeBtn = document.getElementById('closeBodyStyler');
+  const applyBtn = document.getElementById('applyBodyStyler');
+  const bodyBgColor = document.getElementById('bodyBgColor');
+  const bodyFontColor = document.getElementById('bodyFontColor');
+
+  openBtn.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+  applyBtn.addEventListener('click', () => {
+    document.body.style.backgroundColor = bodyBgColor.value;
+    document.body.style.color = bodyFontColor.value;
+    modal.classList.add('hidden');
+  });

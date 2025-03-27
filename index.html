@@ -9,9 +9,29 @@
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>✍🏼 theSectionalOne ✍🏼</h1>
-    <a href="index2.html" id="linkBack">Go To Slick!</a>
-    <a href="index3.html" id="linkBack">Go To New Original!</a>
+
+<!-- Body Styling Modal -->
+<div id="bodyModal" class="body-modal hidden">
+    <div class="body-modal-content">
+        <h2>Style Body</h2>
+        <label for="bodyBgColor">Background Color:</label>
+        <input type="color" id="bodyBgColor" value="#000000">
+        <br>
+        <label for="bodyFontColor">Font Color:</label>
+        <input type="color" id="bodyFontColor" value="#e6eafe">
+        <br>
+        <button id="applyBodyStyler">Apply</button>
+        <button id="closeBodyStyler">Close</button>
+    </div>
+</div>
+
+
+<button id="openBodyStyler" class="body-styler-btn">✍🏼 theSectionalOne ✍🏼</button>
+<div class="page-wrapper">
+    <!-- Button to Open Body Styling Modal -->
+
+    <a href="index2.html" id="linkBack">Go To New Original!</a>
+    <!-- <a href="index3.html" id="linkBack">Go To New Original!</a> -->
     <button onclick="toggleAllSections()" id="toggleAllBtn">👁 Show All Sections</button>
 
     <div id="mainContainer">
@@ -19,9 +39,8 @@
         <div id="headerContainer">
 
 
-            <button onclick="toggleHeaderControls()" id="headerToggleBtn">➕ Show Controls</button>
-
-
+            <button onclick="toggleHeaderControls()" id="headerToggleBtn">➕ Show Controls</button> </div>
+</div>
             <div id="controls" class="hidden">
                 <div class="newFileSection">
                     <h2>✍🏼 Add A New Section ✍🏼</h2>
@@ -64,6 +83,7 @@
 
         </div>
     </div>
+
 
     <script src="fonts.js"></script>
     <script src="script.js"></script>
